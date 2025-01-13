@@ -3,23 +3,57 @@ using System.Text.Json.Serialization;
 
 namespace RetailCorrector.API.Data
 {
+    /// <summary>
+    /// Структура "Позиция чека"
+    /// </summary>
     public struct Position
     {
+        /// <summary>
+        /// Наименование
+        /// </summary>
         [JsonPropertyName("name")]
         public string Name { get; set; }
+
+        /// <summary>
+        /// Количество
+        /// </summary>
         [JsonPropertyName("quantity")]
         public double Quantity { get; set; }
+
+        /// <summary>
+        /// Цена
+        /// </summary>
         [JsonPropertyName("price")]
         public Currency Price { get; set; }
+
+        /// <summary>
+        /// Сумма
+        /// </summary>
         [JsonPropertyName("total")]
         public Currency Sum { get; set; }
+
+        /// <summary>
+        /// Ставка НДС
+        /// </summary>
         [JsonPropertyName("tax")]
-        public int TaxRate { get; set; }
+        public TaxRate TaxRate { get; set; }
+
+        /// <summary>
+        /// Единица измерения
+        /// </summary>
         [JsonPropertyName("measure")]
-        public int? MeasureUnit { get; set; }
+        public MeasureUnit MeasureUnit { get; set; }
+
+        /// <summary>
+        /// Тип позиции
+        /// </summary>
         [JsonPropertyName("type")]
-        public int ItemType { get; set; }
+        public byte ItemType { get; set; }
+
+        /// <summary>
+        /// Способ оплаты
+        /// </summary>
         [JsonPropertyName("payment")]
-        public int PayMethod { get; set; }
+        public byte PayMethod { get; set; }
     }
 }

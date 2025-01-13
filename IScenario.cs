@@ -7,8 +7,16 @@ namespace RetailCorrector.API
     /// </summary>
     public interface IScenario : IAddonEntity
     {
-        public bool HasCancelling { get; }
+        /// <summary>
+        /// Необходимо ли отменять чеки?
+        /// </summary>
+        public bool NeedCancel { get; }
 
+        /// <summary>
+        /// Действие сценария
+        /// </summary>
+        /// <param name="origin">Список оригинальных чеков</param>
+        /// <returns>Список исправленных чеков</returns>
         public Task<List<Receipt>> Edit(List<Receipt> origin);
     }
 }

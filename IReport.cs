@@ -9,11 +9,13 @@
         /// Идентификатор отчета
         /// </summary>
         public virtual static string Type => throw new NotImplementedException();
+
         /// <summary>
         /// Настройка отчёта
         /// </summary>
         /// <param name="args">Параметры отчета</param>
         public void Instance(Dictionary<string, object> args);
+
         /// <summary>
         /// Отправка отчета
         /// </summary>

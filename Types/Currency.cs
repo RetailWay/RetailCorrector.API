@@ -6,8 +6,8 @@ namespace RetailCorrector.API.Types
     /// <summary>
     /// Тип данных "Валюта"
     /// </summary>
-    /// <param name="rubles"></param>
-    /// <param name="pennies"></param>
+    /// <param name="rubles">Рубли</param>
+    /// <param name="pennies">Копейки</param>
     [JsonConverter(typeof(CurrencyConverter))]
     public readonly struct Currency(long rubles = 0, byte pennies = 0)
     {
