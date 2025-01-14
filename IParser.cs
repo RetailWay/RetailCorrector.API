@@ -6,7 +6,7 @@ namespace RetailCorrector.API
     /// <summary>
     /// Интеграция с ОФД
     /// </summary>
-    public interface IParser: IAddonEntity
+    public interface IParser
     {
         /// <summary>
         /// Загрузка чеков за определённый день

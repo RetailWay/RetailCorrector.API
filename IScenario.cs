@@ -5,12 +5,17 @@ namespace RetailCorrector.API
     /// <summary>
     /// Сценарий изменения чеков
     /// </summary>
-    public interface IScenario : IAddonEntity
+    public interface IScenario
     {
         /// <summary>
         /// Необходимо ли отменять чеки?
         /// </summary>
         public bool NeedCancel { get; }
+
+        /// <summary>
+        /// Фильтр чеков, которые будут откорректированы
+        /// </summary>
+        public Predicate<Receipt> Filter { get; }
 
         /// <summary>
         /// Действие сценария

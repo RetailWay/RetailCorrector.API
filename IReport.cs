@@ -3,12 +3,12 @@
     /// <summary>
     /// Тип отчета
     /// </summary>
-    public interface IReport : IAddonEntity
+    public interface IReport
     {
         /// <summary>
         /// Идентификатор отчета
         /// </summary>
-        public virtual static string Type => throw new NotImplementedException();
+        public string Type { get; }
 
         /// <summary>
         /// Настройка отчёта

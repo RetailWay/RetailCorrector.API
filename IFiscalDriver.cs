@@ -1,12 +1,12 @@
 ﻿using RetailCorrector.API.Data;
-using RetailCorrector.API.Enums;
+using RetailCorrector.API.Exceptions;
 
 namespace RetailCorrector.API
 {
     /// <summary>
     /// Интеграция с драйвером ККТ
     /// </summary>
-    public interface IFiscalDriver : IAddonEntity, IDisposable
+    public interface IFiscalDriver : IDisposable
     {
         /// <summary>
         /// Количество неотправленных документов
@@ -21,8 +21,10 @@ namespace RetailCorrector.API
         /// <summary>
         /// Исправление ошибки
         /// </summary>
-        /// <param name="code">Код ошибки</param>
-        public FiscalAction FixError(int code);
+        /// <exception cref="DeviceException">Вызывается при незначительной ошибке ККТ</exception>
+        /// <exception cref="DeviceFatalException">Вызывается при критической ошибке ККТ</exception>
+        /// <exception cref="ReceiptFormatException">Вызывается при ошибке в записе формата чека</exception>
+        public void FixError();
 
         /// <summary>
         /// Подключение к ККТ
@@ -81,6 +83,7 @@ namespace RetailCorrector.API
 
         void IDisposable.Dispose()
         {
+            Disconnect();
             Free();
             GC.SuppressFinalize(this);
         }
