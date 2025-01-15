@@ -8,12 +8,12 @@
     <RootNamespace>$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Title>$(AssemblyName)</Title>
-    <Version>2025.01.14</Version>
+    <Version>2025.01.15</Version>
     <Authors>OrnarasUS</Authors>
     <Company>RetailWay</Company>
     <RepositoryUrl>https://github.com/RetailWay/RetailCorrector.API</RepositoryUrl>
-    <AssemblyVersion>2025.01.14</AssemblyVersion>
-    <FileVersion>2025.01.14</FileVersion>
+    <AssemblyVersion>2025.01.15</AssemblyVersion>
+    <FileVersion>2025.01.15</FileVersion>
     <NeutralLanguage>ru-RU</NeutralLanguage>
 	<EmbedUntrackedSources>true</EmbedUntrackedSources>
 	<Deterministic>true</Deterministic>

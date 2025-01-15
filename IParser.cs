@@ -6,13 +6,13 @@ namespace RetailCorrector.API
     /// <summary>
     /// Интеграция с ОФД
     /// </summary>
-    public interface IParser
+    public abstract class IParser
     {
         /// <summary>
         /// Загрузка чеков за определённый день
         /// </summary>
         /// <returns>Список чеков</returns>
-        public Task<List<Receipt>> ParseReceipts(DateOnly day);
+        public abstract Task<List<Receipt>> ParseReceipts(DateOnly day);
 
         /// <summary>
         /// Получение токена для работы парсера

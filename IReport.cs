@@ -38,5 +38,22 @@
                 return result;
             throw new FormatException();
         }
+
+        /// <summary>
+        /// Получить значение из параметров отчета или использовать значение по умолчанию
+        /// </summary>
+        /// <typeparam name="T">Тип значения параметра отчета</typeparam>
+        /// <param name="dict">Параметры отчета</param>
+        /// <param name="key">Наименование параметра отчета</param>
+        /// <param name="defaultValue">Значение параметра по-умолчанию</param>
+        /// <returns>Значение параметра отчета</returns>
+        protected static T GetOrDefault<T>(Dictionary<string, object> dict, string key, T defaultValue)
+        {
+            if (!dict.TryGetValue(key, out var raw))
+                return defaultValue;
+            if (raw is T result)
+                return result;
+            return defaultValue;
+        }
     }
 }

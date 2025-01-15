@@ -18,7 +18,7 @@ namespace RetailCorrector.API.Data
         /// Количество
         /// </summary>
         [JsonPropertyName("quantity")]
-        public double Quantity { get; set; }
+        public Quantity Quantity { get; set; }
 
         /// <summary>
         /// Цена

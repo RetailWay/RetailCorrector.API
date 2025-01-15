@@ -46,6 +46,8 @@ namespace RetailCorrector.API.Types
 
         private MeasureUnit(string name) : this(255, name) { }
 
+        public MeasureUnit() : this("-") { }
+
         /// <summary>
         /// Получение <see cref="MeasureUnit"/> по значению тега 1197
         /// </summary>
@@ -71,7 +73,7 @@ namespace RetailCorrector.API.Types
                 if (ids[i] == id)
                     return new MeasureUnit(ids[i], names[i]);
             }
-            return new MeasureUnit("-");
+            return new MeasureUnit();
         }
     }
 }
