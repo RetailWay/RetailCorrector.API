@@ -11,10 +11,15 @@ public interface IReport
     public string Id { get; }
 
     /// <summary>
-    /// Отправка отчета
+    /// Инициализация отчёта
     /// </summary>
     /// <param name="args">Параметры отчета</param>
-    public Task Send(Dictionary<string, object> args);
+    public void Init(Dictionary<string, object> args);
+
+    /// <summary>
+    /// Отправка отчета
+    /// </summary>
+    public Task Send();
 
     /// <summary>
     /// Получить значение из параметров отчета или выдать исключение
