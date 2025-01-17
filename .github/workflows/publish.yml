@@ -1,17 +1,17 @@
 name: Publish Package
 
 on:
-  push:
+  pull_request:
     branches: [ "main" ]
 
 jobs:
   publish:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
     - name: Checkout project
       uses: actions/checkout@v4
     - name: Update version record
-      run: sed -i -e "s/0.0.0/$(date +%Y.%m.%d)/g" RetailCorrector.API.csproj
+      run: sed -i -e "s/0.0.0/${{ github.event.pull_request.title }}/g" RetailCorrector.API.csproj
     - name: Install dotnet 8
       uses: actions/setup-dotnet@v4
       with:
@@ -24,8 +24,6 @@ jobs:
       id: vars
       run: |
         echo "nupkg=bin/Debug/$(ls bin/Debug | grep '\.nupkg')" >> $GITHUB_OUTPUT
-        echo "tag=$(date +%Y%m%d)" >> $GITHUB_OUTPUT
-        echo "version=$(date +%Y.%m.%d)" >> $GITHUB_OUTPUT
         echo "dll=bin/Debug/net8.0/$(ls bin/Debug/net8.0 | grep '\.dll')" >> $GITHUB_OUTPUT
     - name: Publish to NuGet
       run: |
@@ -37,6 +35,6 @@ jobs:
         repository: RetailWay/RetailCorrector.API
         token: ${{ secrets.TOKEN_GITHUB }}
         files: ${{ steps.vars.outputs.dll }}
-        name: ${{ steps.vars.outputs.version }}
-        tag_name: ${{ steps.vars.outputs.tag }}
+        name: ${{ github.event.pull_request.title }}
+        tag_name: ${{ github.event.pull_request.title }}
     

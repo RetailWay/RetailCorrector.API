@@ -1,5 +1,6 @@
 ﻿using RetailCorrector.API.Data;
 using RetailCorrector.API.Exceptions;
+using RetailCorrector.API.Types;
 
 namespace RetailCorrector.API;
 
@@ -61,8 +62,9 @@ public interface IFiscalDriver : IDisposable
     /// <summary>
     /// Закрытие фискального документа
     /// </summary>
-    /// <param name="receipt">Информация о документе</param>
-    public void CloseReceipt(Receipt receipt);
+    /// <param name="payment">Информация о оплате</param>
+    /// <param name="total">Итоговая сумма</param>
+    public void CloseReceipt(Payment payment, Currency total);
 
     /// <summary>
     /// Отмена фискального документа
