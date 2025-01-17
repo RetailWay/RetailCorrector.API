@@ -3,23 +3,35 @@
 /// <summary>
 /// Тип отчета
 /// </summary>
-public interface IReport
+public abstract class Report
 {
     /// <summary>
     /// Идентификатор отчета
     /// </summary>
-    public string Id { get; }
+    public abstract string Id { get; }
 
     /// <summary>
     /// Инициализация отчёта
     /// </summary>
     /// <param name="args">Параметры отчета</param>
-    public void Init(Dictionary<string, object> args);
+    public abstract void Init(Dictionary<string, object> args);
 
     /// <summary>
     /// Отправка отчета
     /// </summary>
-    public Task Send();
+    public abstract Task Send();
+
+    /// <summary>
+    /// Присвоить значение параметру
+    /// </summary>
+    /// <param name="key">Название параметра</param>
+    /// <param name="value">Значение параметра</param>
+    /// <exception cref="Exception"></exception>
+    public void SetProperty(string key, object value)
+    {
+        var property = GetType().GetField(key) ?? throw new Exception();
+        property.SetValue(this, value);
+    }
 
     /// <summary>
     /// Получить значение из параметров отчета или выдать исключение
