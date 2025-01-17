@@ -36,5 +36,6 @@ jobs:
         token: ${{ secrets.TOKEN_GITHUB }}
         files: ${{ steps.vars.outputs.dll }}
         name: ${{ github.event.pull_request.title }}
+        body: ${{ github.event.pull_request.body }}
         tag_name: ${{ github.event.pull_request.title }}
     
