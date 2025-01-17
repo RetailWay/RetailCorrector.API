@@ -21,6 +21,12 @@ public abstract class Report
     /// </summary>
     public abstract Task Send();
 
+    /// <summary>
+    /// Присвоить значение параметру
+    /// </summary>
+    /// <param name="key">Название параметра</param>
+    /// <param name="value">Значение параметра</param>
+    /// <exception cref="Exception"></exception>
     public void SetProperty(string key, object value)
     {
         var property = GetType().GetField(key) ?? throw new Exception();
