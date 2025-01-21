@@ -7,7 +7,7 @@ namespace RetailCorrector.API;
 /// <summary>
 /// Интеграция с драйвером ККТ
 /// </summary>
-public interface IFiscalDriver : IDisposable
+public interface IFiscal : IDisposable
 {
     /// <summary>
     /// Количество неотправленных документов

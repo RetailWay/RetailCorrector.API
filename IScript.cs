@@ -5,7 +5,7 @@ namespace RetailCorrector.API;
 /// <summary>
 /// Сценарий изменения чеков
 /// </summary>
-public interface IScenario
+public interface IScript
 {
     /// <summary>
     /// Необходимо ли отменять чеки?
