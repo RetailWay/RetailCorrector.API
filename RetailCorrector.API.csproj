@@ -5,9 +5,9 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
-    <RootNamespace>$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
+    <RootNamespace>RetailCorrector.API</RootNamespace>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
-    <Title>$(AssemblyName)</Title>
+    <Title>RetailCorrector.API</Title>
     <Version>0.0.0</Version>
     <Authors>OrnarasUS</Authors>
     <Company>RetailWay</Company>
@@ -24,14 +24,8 @@
     <Description>API для реализации дополнений RetailCorrector</Description>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageIcon>icon.png</PackageIcon>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
-  </PropertyGroup>
-
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+	<CheckForOverflowUnderflow>True</CheckForOverflowUnderflow>
+	<NoWarn>1701;1702;SYSLIB1220;SYSLIB1030</NoWarn>
   </PropertyGroup>
 
   <ItemGroup>
