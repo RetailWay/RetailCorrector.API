@@ -30,7 +30,8 @@ public interface IFiscal : IDisposable
     /// <summary>
     /// Подключение к ККТ
     /// </summary>
-    public void Connect();
+    /// <param name="data">Параметры подключения</param>
+    public void Connect(FiscalConnection data);
 
     /// <summary>
     /// Отключение от ККТ
