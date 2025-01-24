@@ -9,6 +9,11 @@ namespace RetailCorrector.API;
 public abstract class Parser
 {
     /// <summary>
+    /// Длительность жизни токена
+    /// </summary>
+    public virtual TimeSpan TimeToLive => TimeSpan.MaxValue;
+
+    /// <summary>
     /// Загрузка чеков за определённый день
     /// </summary>
     /// <returns>Список чеков</returns>
