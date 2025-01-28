@@ -13,10 +13,10 @@ jobs:
       uses: actions/checkout@v4
     - name: Update version record
       run: sed -i -e "s/0.0.0/${{ github.event.pull_request.title }}/g" RetailCorrector.API.csproj
-    - name: Install dotnet 8
+    - name: Install .NET Core 2.0 
       uses: actions/setup-dotnet@v4
       with:
-        dotnet-version: 8.x
+        dotnet-version: 2.0
     - name: Auth GitHub NuGet
       run: dotnet nuget add source --username RetailWay --password ${{ secrets.TOKEN_GITHUB }} --store-password-in-clear-text --name github "https://nuget.pkg.github.com/RetailWay/index.json"
     - name: Build project
