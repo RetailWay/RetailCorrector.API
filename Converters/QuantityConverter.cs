@@ -1,24 +1,18 @@
-﻿using System;
-using RetailCorrector.API.Types;
-using Newtonsoft.Json;
+﻿using RetailCorrector.API.Types;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 
-namespace RetailCorrector.API.Converters
+namespace RetailCorrector.API.Converters;
+
+internal class QuantityConverter : JsonConverter<Quantity>
 {
-    internal class QuantityConverter : JsonConverter<Quantity>
+    public override Quantity Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
-        public override void WriteJson(JsonWriter writer, Quantity value, JsonSerializer serializer)
-        {
-            writer.WriteValue(value.Integer * 1000 + value.Decimal);
-        }
-
-        public override Quantity ReadJson(JsonReader reader, Type objectType, Quantity existingValue, bool hasExistingValue,
-            JsonSerializer serializer)
-        {
-            var @int = reader.ReadAsInt32();
-            if (!(@int is null)) return @int.Value;
-            var @decimal = reader.ReadAsDecimal();
-            if (!(@decimal is null)) return @decimal.Value;
-            throw new FormatException();
-        }
+        if(reader.TryGetInt32(out var @int)) return @int;
+        if(reader.TryGetDecimal(out var @decimal)) return @decimal;
+        throw new FormatException();
     }
+
+    public override void Write(Utf8JsonWriter writer, Quantity value, JsonSerializerOptions options) =>
+        writer.WriteNumberValue(value.Integer * 1000 + value.Decimal);
 }
