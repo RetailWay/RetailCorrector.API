@@ -1,41 +1,36 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using RetailCorrector.API.Data;
+﻿using RetailCorrector.API.Data;
 using RetailCorrector.API.Static;
 
-namespace RetailCorrector.API
+namespace RetailCorrector.API;
+
+/// <summary>
+/// Интеграция с ОФД
+/// </summary>
+public abstract class Parser
 {
+    /// <summary>
+    /// Длительность жизни токена
+    /// </summary>
+    public virtual TimeSpan TimeToLive => TimeSpan.MaxValue;
 
     /// <summary>
-    /// Интеграция с ОФД
+    /// Загрузка чеков за определённый день
     /// </summary>
-    public abstract class Parser
-    {
-        /// <summary>
-        /// Длительность жизни токена
-        /// </summary>
-        public virtual TimeSpan TimeToLive => TimeSpan.MaxValue;
+    /// <returns>Список чеков</returns>
+    public abstract Task<List<Receipt>> ParseReceipts(DateOnly day);
 
-        /// <summary>
-        /// Загрузка чеков за определённый день
-        /// </summary>
-        /// <returns>Список чеков</returns>
-        public abstract Task<List<Receipt>> ParseReceipts(DateTime day);
+    /// <summary>
+    /// Получение токена для работы парсера
+    /// </summary>
+    /// <param name="data">Данные авторизации</param>
+    /// <returns>Аутентификационный токен</returns>
+    public virtual Task<string> Auth(params string[] data)
+        => Task.FromResult(string.Join("", data));
 
-        /// <summary>
-        /// Получение токена для работы парсера
-        /// </summary>
-        /// <param name="data">Данные авторизации</param>
-        /// <returns>Аутентификационный токен</returns>
-        public virtual Task<string> Auth(params string[] data)
-            => Task.FromResult(string.Join("", data));
-
-        /// <summary>
-        /// Получение внутренних идентификаторов в ОФД
-        /// </summary>
-        /// <returns>Идентификаторы ККТ и ФН</returns>
-        public virtual Task<(string, string)> GetDevice()
-            => Task.FromResult((ParserData.RegId, ParserData.StorageSerial));
-    }
+    /// <summary>
+    /// Получение внутренних идентификаторов в ОФД
+    /// </summary>
+    /// <returns>Идентификаторы ККТ и ФН</returns>
+    public virtual Task<(string, string)> GetDevice() 
+        => Task.FromResult((ParserData.RegId, ParserData.StorageSerial));
 }

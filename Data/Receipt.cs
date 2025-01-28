@@ -1,48 +1,46 @@
 ﻿using RetailCorrector.API.Types;
-using Newtonsoft.Json;
+using System.Text.Json.Serialization;
 
-namespace RetailCorrector.API.Data
+namespace RetailCorrector.API.Data;
+
+/// <summary>
+/// Структура "Чек"
+/// </summary>
+public struct Receipt
 {
+    /// <summary>
+    /// Номер чека
+    /// </summary>
+    [JsonIgnore]
+    public int DocId { get; set; }
 
     /// <summary>
-    /// Структура "Чек"
+    /// Операция чека
     /// </summary>
-    public struct Receipt
-    {
-        /// <summary>
-        /// Номер чека
-        /// </summary>
-        [JsonIgnore]
-        public int DocId { get; set; }
+    [JsonPropertyName("operation")]
+    public Operation Operation { get; set; }
 
-        /// <summary>
-        /// Операция чека
-        /// </summary>
-        [JsonProperty("operation")]
-        public Operation Operation { get; set; }
+    /// <summary>
+    /// Позиции чека
+    /// </summary>
+    [JsonPropertyName("items")]
+    public Position[] Items { get; set; }
 
-        /// <summary>
-        /// Позиции чека
-        /// </summary>
-        [JsonProperty("items")]
-        public Position[] Items { get; set; }
+    /// <summary>
+    /// Основание коррекции чека
+    /// </summary>
+    [JsonPropertyName("correction")]
+    public CorrectionData Correction { get; set; }
 
-        /// <summary>
-        /// Основание коррекции чека
-        /// </summary>
-        [JsonProperty("correction")]
-        public CorrectionData Correction { get; set; }
+    /// <summary>
+    /// Оплата чека
+    /// </summary>
+    [JsonPropertyName("payment")]
+    public Payment Payment { get; set; }
 
-        /// <summary>
-        /// Оплата чека
-        /// </summary>
-        [JsonProperty("payment")]
-        public Payment Payment { get; set; }
-
-        /// <summary>
-        /// Итоговая сумма чека
-        /// </summary>
-        [JsonProperty("total")]
-        public Currency Total { get; set; }
-    }
+    /// <summary>
+    /// Итоговая сумма чека
+    /// </summary>
+    [JsonPropertyName("total")]
+    public Currency Total { get; set; }
 }

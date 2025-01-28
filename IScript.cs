@@ -1,30 +1,26 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using RetailCorrector.API.Data;
+﻿using RetailCorrector.API.Data;
 
-namespace RetailCorrector.API
+namespace RetailCorrector.API;
+
+/// <summary>
+/// Сценарий изменения чеков
+/// </summary>
+public interface IScript
 {
+    /// <summary>
+    /// Необходимо ли отменять чеки?
+    /// </summary>
+    public bool NeedCancel { get; }
 
     /// <summary>
-    /// Сценарий изменения чеков
+    /// Фильтр чеков, которые будут откорректированы
     /// </summary>
-    public interface IScript
-    {
-        /// <summary>
-        /// Необходимо ли отменять чеки?
-        /// </summary>
-        bool NeedCancel { get; }
+    public bool Filter(Receipt receipt);
 
-        /// <summary>
-        /// Фильтр чеков, которые будут откорректированы
-        /// </summary>
-        bool Filter(Receipt receipt);
-
-        /// <summary>
-        /// Действие сценария
-        /// </summary>
-        /// <param name="origin">Список оригинальных чеков</param>
-        /// <returns>Список исправленных чеков</returns>
-        Task<List<Receipt>> Edit(List<Receipt> origin);
-    }
+    /// <summary>
+    /// Действие сценария
+    /// </summary>
+    /// <param name="origin">Список оригинальных чеков</param>
+    /// <returns>Список исправленных чеков</returns>
+    public Task<List<Receipt>> Edit(List<Receipt> origin);
 }
