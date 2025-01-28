@@ -1,22 +1,27 @@
-﻿namespace RetailCorrector.API;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
-/// <summary>
-/// Тип отчета
-/// </summary>
-public interface IReport
+namespace RetailCorrector.API
 {
-    /// <summary>
-    /// Идентификатор отчета
-    /// </summary>
-    public string Id { get; }
 
     /// <summary>
-    /// Параметры отчёта
+    /// Тип отчета
     /// </summary>
-    public Dictionary<string, string> Properties { get; }
+    public interface IReport
+    {
+        /// <summary>
+        /// Идентификатор отчета
+        /// </summary>
+        string Id { get; }
 
-    /// <summary>
-    /// Отправка отчета
-    /// </summary>
-    public Task Send();
+        /// <summary>
+        /// Параметры отчёта
+        /// </summary>
+        Dictionary<string, string> Properties { get; }
+
+        /// <summary>
+        /// Отправка отчета
+        /// </summary>
+        Task Send();
+    }
 }

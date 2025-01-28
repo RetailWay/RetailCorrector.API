@@ -1,21 +1,26 @@
-﻿using RetailCorrector.API.Types;
-using System.Text.Json;
-using System.Text.Json.Serialization;
+﻿using System;
+using RetailCorrector.API.Types;
+using Newtonsoft.Json;
 
-namespace RetailCorrector.API.Converters;
-
-internal class MeasureConverter : JsonConverter<MeasureUnit>
+namespace RetailCorrector.API.Converters
 {
-    public override MeasureUnit Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
-    {
-        if(reader.TryGetByte(out var id)) MeasureUnit.Parse(id);
-        if(reader.GetString() is string text) MeasureUnit.Parse(text);
-        return new MeasureUnit();
-    }
 
-    public override void Write(Utf8JsonWriter writer, MeasureUnit value, JsonSerializerOptions options)
+    internal class MeasureConverter : JsonConverter<MeasureUnit>
     {
-        if(value.Id == 255) writer.WriteStringValue(value.Name);
-        else writer.WriteNumberValue(value.Id);
+        public override void WriteJson(JsonWriter writer, MeasureUnit value, JsonSerializer serializer)
+        {
+            if (value.Id == 255) writer.WriteValue(value.Name);
+            else writer.WriteValue(value.Id);
+        }
+
+        public override MeasureUnit ReadJson(JsonReader reader, Type objectType, MeasureUnit existingValue, bool hasExistingValue,
+            JsonSerializer serializer)
+        {
+            var id = reader.ReadAsInt32();
+            if (id is byte) MeasureUnit.Parse((byte)id);
+            var text = reader.ReadAsString();
+            if (!(text is null)) MeasureUnit.Parse(text);
+            return new MeasureUnit();
+        }
     }
 }

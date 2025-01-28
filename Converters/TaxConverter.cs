@@ -1,17 +1,22 @@
-﻿using RetailCorrector.API.Types;
-using System.Text.Json;
-using System.Text.Json.Serialization;
+﻿using System;
+using RetailCorrector.API.Types;
+using Newtonsoft.Json;
 
-namespace RetailCorrector.API.Converters;
-
-internal class TaxConverter : JsonConverter<TaxRate>
+namespace RetailCorrector.API.Converters
 {
-    public override TaxRate Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    internal class TaxConverter : JsonConverter<TaxRate>
     {
-        if (!reader.TryGetSByte(out var value)) throw new FormatException();
-        return TaxRate.ParseJson(value);
-    }
+        public override void WriteJson(JsonWriter writer, TaxRate value, JsonSerializer serializer)
+        {
+            writer.WriteValue(value.Value);
+        }
 
-    public override void Write(Utf8JsonWriter writer, TaxRate value, JsonSerializerOptions options) =>
-        writer.WriteNumberValue(value.Value);
+        public override TaxRate ReadJson(JsonReader reader, Type objectType, TaxRate existingValue, bool hasExistingValue,
+            JsonSerializer serializer)
+        {
+            var value = reader.ReadAsInt32();
+            if (!(value is sbyte sb)) throw new FormatException();
+            return TaxRate.ParseJson(sb);
+        }
+    }
 }

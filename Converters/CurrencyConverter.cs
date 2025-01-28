@@ -1,18 +1,24 @@
-﻿using RetailCorrector.API.Types;
-using System.Text.Json;
-using System.Text.Json.Serialization;
+﻿using System;
+using RetailCorrector.API.Types;
+using Newtonsoft.Json;
 
-namespace RetailCorrector.API.Converters;
-
-internal class CurrencyConverter : JsonConverter<Currency>
+namespace RetailCorrector.API.Converters
 {
-    public override Currency Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
+    internal class CurrencyConverter : JsonConverter<Currency>
     {
-        if(reader.TryGetInt32(out var @int)) return @int;
-        if(reader.TryGetDecimal(out var @decimal)) return @decimal;
-        throw new FormatException();
-    }
+        public override void WriteJson(JsonWriter writer, Currency value, JsonSerializer serializer)
+        {
+            writer.WriteValue(value.Rubles * 100 + value.Pennies);
+        }
 
-    public override void Write(Utf8JsonWriter writer, Currency value, JsonSerializerOptions options) =>
-        writer.WriteNumberValue(value.Rubles * 100 + value.Pennies);
+        public override Currency ReadJson(JsonReader reader, Type objectType, Currency existingValue, bool hasExistingValue,
+            JsonSerializer serializer)
+        {
+            var @int = reader.ReadAsInt32();
+            if (!(@int is null)) return @int.Value;
+            var @decimal = reader.ReadAsDecimal();
+            if (!(@decimal is null)) return @decimal.Value;
+            throw new FormatException();
+        }
+    }
 }
